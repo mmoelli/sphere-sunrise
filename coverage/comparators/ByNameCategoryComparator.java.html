@@ -14,7 +14,7 @@ public final class ByNameCategoryComparator implements Comparator&lt;Category&gt
 
     @Override
     public int compare(Category o1, Category o2) {
-<span class="fc" id="L17">        return o1.getName().get(locale).or(&quot;&quot;).compareTo(o2.getName().get(locale).or(&quot;&quot;));</span>
+<span class="fc" id="L17">        return o1.getName().get(locale).orElse(&quot;&quot;).compareTo(o2.getName().get(locale).orElse(&quot;&quot;));</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

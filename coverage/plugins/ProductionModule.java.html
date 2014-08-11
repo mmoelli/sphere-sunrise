@@ -4,6 +4,7 @@ import com.google.inject.AbstractModule;
 import io.sphere.sdk.categories.Category;
 import io.sphere.sdk.categories.CategoryTree;
 import io.sphere.sdk.categories.CategoryTreeFactory;
+import io.sphere.sdk.categories.queries.CategoryQuery;
 import io.sphere.sdk.client.PlayJavaClient;
 import io.sphere.sdk.client.PlayJavaClientImpl;
 import io.sphere.sdk.queries.PagedQueryResult;
@@ -18,18 +19,18 @@ import java.util.concurrent.TimeUnit;
 class ProductionModule extends AbstractModule {
     private final Application app;
 
-<span class="nc" id="L21">    public ProductionModule(Application app) {</span>
-<span class="nc" id="L22">        this.app = app;</span>
-<span class="nc" id="L23">    }</span>
+<span class="nc" id="L22">    public ProductionModule(Application app) {</span>
+<span class="nc" id="L23">        this.app = app;</span>
+<span class="nc" id="L24">    }</span>
 
     @Override
     protected void configure() {
-<span class="nc" id="L27">        final PlayJavaClient client = new PlayJavaClientImpl(app.configuration());</span>
-<span class="nc" id="L28">        final PagedQueryResult&lt;Category&gt; queryResult = client.execute(Category.query()).get(2000, TimeUnit.MILLISECONDS);//TODO this will be most likely moved to a plugin</span>
+<span class="nc" id="L28">        final PlayJavaClient client = new PlayJavaClientImpl(app.configuration());</span>
+<span class="nc" id="L29">        final PagedQueryResult&lt;Category&gt; queryResult = client.execute(new CategoryQuery()).get(2000, TimeUnit.MILLISECONDS);//TODO this will be most likely moved to a plugin</span>
         //TODO this does not take all categories if there are a lot.
-<span class="nc" id="L30">        final CategoryTree categoryTree = CategoryTreeFactory.create(queryResult.getResults());</span>
-<span class="nc" id="L31">        bind(PlayJavaClient.class).toInstance(client);</span>
-<span class="nc" id="L32">        bind(CategoryTree.class).toInstance(categoryTree);</span>
-<span class="nc" id="L33">    }</span>
+<span class="nc" id="L31">        final CategoryTree categoryTree = CategoryTreeFactory.create(queryResult.getResults());</span>
+<span class="nc" id="L32">        bind(PlayJavaClient.class).toInstance(client);</span>
+<span class="nc" id="L33">        bind(CategoryTree.class).toInstance(categoryTree);</span>
+<span class="nc" id="L34">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>

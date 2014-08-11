@@ -3,6 +3,7 @@
 import io.sphere.sdk.categories.CategoryTree;
 import io.sphere.sdk.client.PlayJavaClient;
 import io.sphere.sdk.products.Product;
+import io.sphere.sdk.products.queries.ProductQuery;
 import io.sphere.sdk.queries.PagedQueryResult;
 import play.libs.F;
 import play.mvc.*;
@@ -18,16 +19,16 @@ public final class ApplicationController extends SunriseController {
 
     @Inject
     public ApplicationController(final PlayJavaClient client, final CategoryTree categoryTree) {
-<span class="fc" id="L21">        super(client, categoryTree);</span>
-<span class="fc" id="L22">    }</span>
+<span class="fc" id="L22">        super(client, categoryTree);</span>
+<span class="fc" id="L23">    }</span>
 
     public F.Promise&lt;Result&gt; index() {
-<span class="fc" id="L25">        return client().execute(Product.query()).map(this::showProducts);</span>
+<span class="fc" id="L26">        return client().execute(new ProductQuery()).map(this::showProducts);</span>
     }
 
     private Result showProducts(PagedQueryResult&lt;Product&gt; productPagedQueryResult) {
-<span class="fc" id="L29">        final List&lt;Product&gt; products = productPagedQueryResult.getResults();</span>
-<span class="fc" id="L30">        return ok(index.render(data().products(products).build()));</span>
+<span class="fc" id="L30">        final List&lt;Product&gt; products = productPagedQueryResult.getResults();</span>
+<span class="fc" id="L31">        return ok(index.render(data().products(products).build()));</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.1.201405082137</span></div></body></html>
